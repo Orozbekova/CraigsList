@@ -74,7 +74,7 @@ class PostViewSet(ModelViewSet):
         serializer.save(owner=self.request.user)
 
 
-    #review
+#review
     @action(methods=['POST'], detail=True)
     def review(self, request, pk):
         serializer = ReviewSerializers(data=request.data)
@@ -114,6 +114,20 @@ class PostViewSet(ModelViewSet):
             object = Favorite(owner=request.user,post=self.get_object())
         object.save()
         return Response('Добавлено в избранное', status=status.HTTP_200_OK)
+
+##rating
+    @action(methods=['POST'], detail=True)
+    def rating(self, request, pk):
+        serializer = RatingSerializers(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        try:
+            obj = Rating.objects.get(post=self.get_object(), owner=request.user)
+            obj.rating = request.data['rating']
+        except Rating.DoesNotExist:
+            obj = Rating(owner=request.user, post=self.get_object(), rating=request.data['rating'])
+        obj.save()
+        return Response(request.data, status=status.HTTP_201_CREATED)
+
 
 
 

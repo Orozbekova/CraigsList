@@ -51,7 +51,7 @@ class Post(models.Model):
     price = models.DecimalField(max_digits=10, decimal_places=2)
     city = models.CharField(max_length=30, choices=CHOICES)
     category = models.ForeignKey(Category, related_name='posts', on_delete=models.CASCADE)
-    sub_category = models.ForeignKey(SubCategory,related_name='posts',on_delete=models.CASCADE)
+    sub_category = models.ForeignKey(SubCategory,related_name='posts',on_delete=models.CASCADE,blank=True)
     number_phone = models.CharField('Номер телефона', max_length=11, blank=True, validators=[validators_number_phone])
     created_date = models.DateTimeField(auto_now_add=True)
 
@@ -94,3 +94,14 @@ class Likes(models.Model):
 
     def __str__(self):
         return f'{self.owner}--likes-> {self.post}'
+
+
+
+
+class Rating(models.Model):
+    post = models.ForeignKey(Post, on_delete=models.CASCADE, related_name='rating')
+    owner = models.ForeignKey(User, on_delete=models.CASCADE, related_name='rating')
+    rating = models.SmallIntegerField(validators=[
+            MinValueValidator(1),
+            MaxValueValidator(5)
+        ])
