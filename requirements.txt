@@ -10,3 +10,7 @@ django-filter
 celery
 redis
 celery[redis]
+django-allauth
+
+
+dwebsocket

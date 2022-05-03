@@ -18,7 +18,7 @@ class PostSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Post
-        fields = ('id', 'owner','name','description','category','price','images','sub_category','number_phone')
+        fields = ('id', 'owner','name','description','category','price','images','sub_category','number_phone','reviews','city')
 
     def create(self, validated_data):
         request = self.context.get('request')
@@ -89,9 +89,3 @@ class RatingSerializers(serializers.ModelSerializer):
         model = Rating
         fields = ('rating',)
 
-
-
-# class OrderSerializers(serializers.ModelSerializer):
-#     class Meta:
-#         model = Order
-#         fields = "__all__"

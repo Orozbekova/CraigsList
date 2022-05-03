@@ -11,9 +11,9 @@ from rest_framework.response import Response
 from rest_framework.status import HTTP_400_BAD_REQUEST, HTTP_200_OK
 from rest_framework.views import APIView
 
-from applications.account.models import CustomUser
-from applications.account.serializers import RegisterSerializer, LoginSerializer, CreateNewPasswordSerializer
-from applications.account.utils import send_activation_code
+from applications.normal_account.models import CustomUser
+from applications.normal_account.serializers import RegisterSerializer, LoginSerializer, CreateNewPasswordSerializer
+from applications.normal_account.utils import send_activation_code
 
 
 class RegisterAPIView(APIView):
@@ -74,3 +74,13 @@ class CompleteResetPassword(APIView):
         if serializer.is_valid(raise_exception=True):
             serializer.save()
             return Response('Вы успешно восстановили пароль', status=200)
+
+
+
+###############################
+# from django.shortcuts import render
+# from django.views.generic import TemplateView
+# from django.contrib.auth.mixins import LoginRequiredMixin
+#
+# class HomeView(LoginRequiredMixin, TemplateView):
+#     template_name = "home.html"

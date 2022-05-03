@@ -3,7 +3,7 @@ from django.contrib.auth import get_user_model
 from django.core.validators import MinValueValidator, MaxValueValidator
 from django.db import models
 
-from applications.account.models import CustomUser
+from applications.normal_account.models import CustomUser
 from main import settings
 
 User = get_user_model()

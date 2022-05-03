@@ -2,7 +2,7 @@ from django.contrib.auth.views import PasswordResetDoneView, PasswordResetConfir
 from django.urls import path, include
 from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
 
-from applications.account.views import *
+from applications.normal_account.views import *
 
 
 

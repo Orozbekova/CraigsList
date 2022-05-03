@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css"
+        integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn" crossorigin="anonymous">
+</head>
+
+<body>
+    <div class="container">
+        <h1>demo chat app</h1>
+        <form>
+            <div class="form-group">
+                <textarea class="form-control" id="chat-log" rows="3" readonly>
+                    {% for chat in chats %}
+                        {{chat.content}}
+                    {% endfor %}
+                </textarea>
+            </div>
+        </form>
+        <div class="form-group">
+            <input class="form-control form-control-lg" type="text" id="chat-message"
+                placeholder="type your message here">
+        </div>
+        <button class="btn btn-primary" id="chat-msg-send">Send</button>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"
+        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-fQybjgWLrvvRgtW6bFlB7jaZrFsaBXjsOMm/tB9LTS58ONXgqbR9W8oWht/amnpF"
+        crossorigin="anonymous"></script>
+    <script>
+        const ws = new WebSocket('ws://127.0.0.1:8000/ws/index/');
+        ws.addEventListener('open', () => {
+            console.log("connection established");
+        })
+        ws.addEventListener('message', (event) => {
+            console.log("message received", event);
+            let data = JSON.parse(event.data);
+            console.log(data.msg);
+            document.querySelector("#chat-log").value+=data.msg+`\n`
+        })
+        ws.addEventListener('close', () => {
+            console.log("connection closed");
+        });
+        ws.addEventListener('error', (event) => {
+            console.log(`some error occured ${event}}`);
+        });
+        let send_btn = document.getElementById('chat-msg-send')
+        send_btn.addEventListener('click',()=>{
+            let chat = document.getElementById('chat-message');
+            ws.send(JSON.stringify({'msg':chat.value}));
+            chat.value="";
+        })
+    </script>
+</body>
+
+</html>
