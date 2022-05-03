@@ -148,25 +148,3 @@ class DeleteUpdateRetriveView(RetrieveUpdateDestroyAPIView):
     serializer_class = PostSerializer
     permission_classes = [IsAuthenticated] # [IsAdmin]
 
-
-
-
-##Order
-#     @action(methods=['POST'], detail=True)
-#     def order(self, request, pk):
-#         serializer = OrderSerializers(data=request.data)
-#         obj = Order.objects.create(product=self.get_object(), customer=request.data['customer'],
-#                                 tel = request.data['tel'], quantity = request.data['quantity'])
-#         obj.save()
-#         vl = obj.product_id
-#         # print(vl)
-#         objquery = request.data.copy()
-#         objquery.__setitem__("product_id", vl)
-#         tg_prod = str(Product.objects.get(pk=vl))
-#         # print(tg_prod)
-#         #
-# ##TeleBot
-#         sendTelegram(tg_customer=obj.customer, tg_tel=obj.tel,tg_prod = tg_prod, tg_qty = obj.quantity )
-#
-#         return Response(objquery,
-#                         status=status.HTTP_201_CREATED)

@@ -1,6 +1,4 @@
 from rest_framework import serializers
-from rest_framework.utils import representation
-from rest_framework.utils.field_mapping import get_nested_relation_kwargs
 
 from applications.board.models import *
 

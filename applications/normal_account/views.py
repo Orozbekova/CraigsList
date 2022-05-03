@@ -53,8 +53,6 @@ class LogoutView(APIView):
             return  Response(status=status.HTTP_403_FORBIDDEN)
 
 
-##################################3
-
 class ForgotPasswordView(APIView):
     def get(self, request):
         email = request.query_params.get('email')
@@ -77,10 +75,3 @@ class CompleteResetPassword(APIView):
 
 
 
-###############################
-# from django.shortcuts import render
-# from django.views.generic import TemplateView
-# from django.contrib.auth.mixins import LoginRequiredMixin
-#
-# class HomeView(LoginRequiredMixin, TemplateView):
-#     template_name = "home.html"
